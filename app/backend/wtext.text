@@ -15,3 +15,11 @@
 utilizando o comando npm run test:debug;
 Você pode subir ou descer uma aplicação do compose, 
 utilizando npm run com os scripts compose:up, compose:down, ou compose:up:dev, compose:down:dev;
+
+  admin: {
+    validAdmin: {
+      id: 1,
+      username: 'Admin',
+      role: 'admin',
+      email: 'admin@admin.com',
+      password: 'secret_admin',

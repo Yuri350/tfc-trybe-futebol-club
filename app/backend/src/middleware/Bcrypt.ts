@@ -7,7 +7,7 @@ export default class BcryptHelper {
     return bcrypt.hashSync(text, this.saltRounds);
   }
 
-  public static compare(encryptText: string, planText: string): boolean {
+  public static compare(planText: string, encryptText: string): boolean {
     return bcrypt.compareSync(planText, encryptText);
   }
 }
