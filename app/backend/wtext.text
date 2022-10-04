@@ -1,6 +1,6 @@
-1 -> sequelize / migration -> npx sequelize migration:generate --name create:nomedatabela
+1 -> sequelize / migration -> npx sequelize migration:generate --name create:nomedatabela +
 
-2 -> model
+2 -> model +
 
 3 -> services
 
@@ -9,3 +9,9 @@
 5 -> routes e o index do routes
 
 6 -> chamar no app
+
+
+
+utilizando o comando npm run test:debug;
+Você pode subir ou descer uma aplicação do compose, 
+utilizando npm run com os scripts compose:up, compose:down, ou compose:up:dev, compose:down:dev;
