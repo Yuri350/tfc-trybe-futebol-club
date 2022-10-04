@@ -1,0 +1,11 @@
+1 -> sequelize / migration -> npx sequelize migration:generate --name create:nomedatabela
+
+2 -> model
+
+3 -> services
+
+4 -> controller
+
+5 -> routes e o index do routes
+
+6 -> chamar no app

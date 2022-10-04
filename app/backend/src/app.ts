@@ -1,4 +1,5 @@
 import * as express from 'express';
+import routes from './routes';
 
 class App {
   public app: express.Express;
@@ -22,6 +23,7 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.use('/login', routes.login);
   }
 
   public start(PORT: string | number):void {
@@ -33,3 +35,5 @@ export { App };
 
 // A execução dos testes de cobertura depende dessa exportação
 export const { app } = new App();
+
+// npm install bcrypt
