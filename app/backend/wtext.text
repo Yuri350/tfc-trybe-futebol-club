@@ -11,6 +11,9 @@
 6 -> chamar no app
 
 
+npm run test:coverage
+
+
 
 utilizando o comando npm run test:debug;
 Você pode subir ou descer uma aplicação do compose, 
