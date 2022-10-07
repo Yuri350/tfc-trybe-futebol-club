@@ -1,0 +1,50 @@
+import * as sinon from 'sinon';
+import * as chai from 'chai';
+// @ts-ignore
+import chaiHttp = require('chai-http');
+import Users from '../database/models/user.model';
+
+import { app } from '../app';
+import Example from '../database/models/ExampleModel';
+
+import { Response } from 'superagent';
+
+chai.use(chaiHttp);
+
+const { expect } = chai;
+
+describe('Test /login', () => {
+
+  // * Exemplo do uso de stubs com tipos
+  const dumpUser = {
+  email: 'teste@teste.com',
+  password: 'notadmin'
+}
+
+const dumpAuthorization = {
+  token: 'mj12n312und9w1u2ndj192'
+}
+   
+
+let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon.stub(Users, 'create').resolves({ id: 1, ...dumpUser } as Users);
+  });
+
+  after(()=>{
+    sinon.restore();
+  })
+
+  it('Create user successfully', async () => {
+    chaiHttpResponse = await chai.request(app).post('/login').send(dumpUser);
+ 
+    expect(chaiHttpResponse.status).to.equal(201);
+    expect(chaiHttpResponse.body).to.deep.equal({ id: 1, ...dumpUser });
+  });
+
+  it('Is not possible to create an user without Email', async () => {
+    const response = await chai.request(app).post('/login').send({ ...dumpUser, email: '', });
+    expect(response.status).to.equal(400);
+  });
+});

@@ -2,4 +2,9 @@
 Você pode subir ou descer uma aplicação do compose, utilizando npm run
  com os scripts compose:up, compose:down, ou compose:up:dev, compose:down:dev;
 
+npm run compose:up:dev
+
 npx sequelize migration:generate --name create:nome da tabela
+
+
+npm run test:coverage

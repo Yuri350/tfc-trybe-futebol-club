@@ -1,11 +1,10 @@
-import Sinon, * as sinon from 'sinon';
+import * as Sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-import Users from '../database/models/user.model';
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
+import Users from '../database/models/user.model';
 
 import { Response } from 'superagent';
 
@@ -18,26 +17,32 @@ const dumpUser = {
   password: 'notadmin'
 }
 
+const dumpAuthorization = {
+  token: 'mj12n312und9w1u2ndj192'
+}
+
 describe('Test /login', () => {
   describe('/POST', () => {
+    let chaiHttpResponse: Response;
 
-    beforeAll(() => {
+    before(async () => {
       Sinon.stub(Users, 'create').resolves({ id: 1, ...dumpUser } as Users);
     });
 
-    afterAll(() => {
+    after(()=>{
       Sinon.restore();
     });
 
     it('Create user successfully', async () => {
-      const response = await (await (await chai.request(app).post('/login')).setEncoding(dumpUser).header({'token': 'FalsetokenTest'}));
-      chai.expect(response.status).to.equal(201);
-      chai.expect(response.body).to.deep.equal({ id: 1, ...dumpUser });
+      chaiHttpResponse = await chai.request(app).post('/login').set(dumpAuthorization).send(dumpUser);
+ 
+      expect(chaiHttpResponse.status).to.equal(201);
+      expect(chaiHttpResponse.body).to.deep.equal({ id: 1, ...dumpUser });
     });
 
     it('Is not possible to create an user without Email', async () => {
       const response = await chai.request(app).post('/login').send({ ...dumpUser, email: '', });
-      chai.expect(response.status).to.equal(400);
+      expect(response.status).to.equal(400);
     });
-  })
+  });
 });
