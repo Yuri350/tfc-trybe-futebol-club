@@ -8,7 +8,7 @@ import 'dotenv/config';
 // const { JWT_SECRET } = process.env;
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
-function createToken(payload: ILogin): string {
+function createToken(payload: ILogin) {
   const JWTOP: jwt.SignOptions = {
     algorithm: 'HS256',
     expiresIn: '20d',
@@ -18,9 +18,9 @@ function createToken(payload: ILogin): string {
   return token;
 }
 
-function tokenValidation(token: string): ILogin {
+function tokenValidationAux(token: string) {
   const payload = jwt.verify(token, JWT_SECRET);
-  return payload as ILogin;
+  return payload;
 }
 
 // const token = (payload) => {
@@ -33,4 +33,4 @@ function tokenValidation(token: string): ILogin {
 //   return result;
 // };
 
-export { createToken, tokenValidation };
+export { createToken, tokenValidationAux };

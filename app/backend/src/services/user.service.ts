@@ -1,3 +1,4 @@
+import IUser from '../interface/IUser';
 import UserModel from '../database/models/user.model';
 import Bcrypt from '../middleware/Bcrypt';
 import { createToken } from '../middleware/token';
@@ -13,20 +14,27 @@ const catchError = (status: number, message: string) => {
 };
 
 export default class UserService {
-  public static async login(input: { email: string, password: string }): Promise<string> {
+  constructor(private userModel: typeof UserModel) {}
+
+  public async login(email: string, password: string): Promise<string> {
     const Error4041 = 'All fields must be filled';
     const Error4042 = 'Incorrect email or password';
 
-    const result = await UserModel.findOne({ where: { email: input.email } });
+    const result = await this.userModel.findOne({ where: { email } });
+    // console.log('------------->', result);
     if (result === null) throw catchError(400, Error4041);
 
-    const validPass = Bcrypt.compare(input.password, result.password);
+    const validPass = Bcrypt.compare(password, result.password);
     if (!validPass) throw catchError(400, Error4041);
 
-    if (input.email !== result.email) throw catchError(401, Error4042);
-    if (input.password !== result.password) throw catchError(401, Error4042);
+    if (email !== result.email) throw catchError(401, Error4042);
 
-    const token = createToken(input);
+    const token = createToken({ email, password });
     return token;
+  }
+
+  public async getAll(): Promise<IUser[]> {
+    const result = await this.userModel.findAll();
+    return result;
   }
 }
