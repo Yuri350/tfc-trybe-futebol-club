@@ -20,12 +20,14 @@ export default class UserService {
     const Error4041 = 'All fields must be filled';
     const Error4042 = 'Incorrect email or password';
 
+    if (!email || !password) throw catchError(400, Error4041);
+
     const result = await this.userModel.findOne({ where: { email } });
-    // console.log('------------->', result);
-    if (result === null) throw catchError(400, Error4041);
+
+    if (result === null) throw catchError(401, Error4042);
 
     const validPass = Bcrypt.compare(password, result.password);
-    if (!validPass) throw catchError(400, Error4041);
+    if (!validPass) throw catchError(401, Error4042);
 
     if (email !== result.email) throw catchError(401, Error4042);
 
