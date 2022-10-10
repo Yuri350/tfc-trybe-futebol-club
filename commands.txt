@@ -10,3 +10,8 @@ npx sequelize migration:generate --name create:nome da tabela
 npm run test:coverage
 
 O CONTAINER SÓ FICA HEALTHY SE N TIVER ERROS NO CODIGO
+
+{
+  "email": "admin@admin.com",
+  "password": "secret_admin"
+}

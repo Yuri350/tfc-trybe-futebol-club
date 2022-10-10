@@ -22,6 +22,15 @@ export default class UserController {
     }
   };
 
+  public LoginValidate = async (req: Request, res: Response) => {
+    const { user } = req.body;
+    const { data } = user;
+    console.log('----->', data.email);
+    const result = await this.usersService.loginValidate(data.email);
+
+    return res.status(200).json({ role: result?.role });
+  };
+
   public getAll = async (req: Request, res: Response) => {
     const result = await this.usersService.getAll();
     return res.status(200).json(result);

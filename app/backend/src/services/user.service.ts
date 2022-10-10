@@ -35,6 +35,11 @@ export default class UserService {
     return token;
   }
 
+  public async loginValidate(email: string): Promise<IUser | null> {
+    const result = await this.userModel.findOne({ where: { email } });
+    return result as IUser || null;
+  }
+
   public async getAll(): Promise<IUser[]> {
     const result = await this.userModel.findAll();
     return result;
