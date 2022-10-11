@@ -4,7 +4,7 @@ import ITeam from '../interface/ITeam';
 export default class teamsService {
   constructor(private teamModel: typeof TeamModel) {}
 
-  public async getAll(): Promise<ITeam[]> {
+  public async getAll() {
     const result = await this.teamModel.findAll();
     return result;
   }

@@ -25,6 +25,7 @@ class App {
     this.app.use(accessControl);
     this.app.use('/login', routes.login);
     this.app.use('/teams', routes.teams);
+    this.app.use('/matches', routes.match);
   }
 
   public start(PORT: string | number):void {
