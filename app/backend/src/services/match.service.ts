@@ -25,4 +25,11 @@ export default class MatchService {
     const result = await this.matchModel.create(match);
     return result as unknown as IMatch;
   }
+
+  public async getByIdFinish(id: number, inProgress: boolean) {
+    await this.matchModel.update({ inProgress }, { where: { id } });
+    const result = await this.matchModel.findOne({ where: { id } });
+    return result;
+    // update: pega o inProgress e procura o id dele
+  }
 }
