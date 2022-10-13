@@ -11,7 +11,7 @@ const validation:RequestHandler = async (req, res, next) => {
     req.body.user = result;
     next();
   } catch (error) {
-    res.status(401).json({ message: 'Expired or invalid token' });
+    res.status(401).json({ message: 'Token must be a valid token' });
   }
 };
 

@@ -16,8 +16,8 @@ export default class MatchService {
     return result;
   }
 
-  public async getById(id: number) {
-    const result = await this.matchModel.findByPk(id);
+  public async getById(match: number) {
+    const result = await this.matchModel.findOne({ where: { id: match } });
     return result;
   }
 
