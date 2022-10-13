@@ -10,5 +10,6 @@ const matchService = new MatchService(Match, Team);
 const matchController = new MatchController(matchService);
 
 router.get('/', (req, res) => matchController.getAll(req, res));
+router.post('/', (req, res) => matchController.postInProgress(req, res));
 
 export default router;
