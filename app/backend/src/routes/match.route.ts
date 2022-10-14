@@ -12,7 +12,7 @@ const matchController = new MatchController(matchService);
 
 router.get('/', (req, res) => matchController.getAll(req, res));
 router.post('/', validation, (req, res) => matchController.postInProgress(req, res));
-router.patch('/:id/finish', (req, res) => matchController.postInProgress(req, res));
+router.patch('/:id/finish', (req, res) => matchController.pathByIdFinish(req, res));
 
 // o patch pega a informação que ja existe e modifica uma delas
 

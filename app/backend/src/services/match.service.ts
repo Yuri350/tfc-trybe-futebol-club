@@ -16,17 +16,22 @@ export default class MatchService {
     return result;
   }
 
-  public async getById(match: number) {
-    const result = await this.matchModel.findOne({ where: { id: match } });
+  public async getById(id: number) {
+    const result = await this.team.findByPk(id);
     return result;
   }
+
+  // public async getById(match: number) {
+  //   const result = await this.matchModel.findOne({ where: { id: match } });
+  //   return result;
+  // }
 
   public async postInProgress(match: IMatch) {
     const result = await this.matchModel.create(match);
     return result as unknown as IMatch;
   }
 
-  public async getByIdFinish(id: number, inProgress: boolean) {
+  public async updateByIdFinish(id: number, inProgress: boolean) {
     await this.matchModel.update({ inProgress }, { where: { id } });
     const result = await this.matchModel.findOne({ where: { id } });
     return result;
