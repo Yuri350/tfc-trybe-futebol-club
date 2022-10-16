@@ -3,7 +3,7 @@ import UserModel from '../database/models/user.model';
 import Bcrypt from '../middleware/Bcrypt';
 import { createToken } from '../middleware/token';
 
-interface StatusError extends Error {
+interface StatusError extends Error { // duplicada no arquivo match
   message: string,
   status: number,
 }

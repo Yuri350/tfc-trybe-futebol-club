@@ -26,6 +26,7 @@ class App {
     this.app.use('/login', routes.login);
     this.app.use('/teams', routes.teams);
     this.app.use('/matches', routes.match);
+    this.app.use('/leaderboard', routes.leaderboard);
   }
 
   public start(PORT: string | number):void {

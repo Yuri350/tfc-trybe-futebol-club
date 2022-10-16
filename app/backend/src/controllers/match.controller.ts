@@ -32,7 +32,7 @@ export default class MatchController {
     }
   };
 
-  public pathByIdFinish = async (req: Request, res: Response) => {
+  public patchByIdFinish = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const inProgress = false;
@@ -43,5 +43,10 @@ export default class MatchController {
     } catch (error) {
       res.status(404).json({ message: 'Error 404: not found' });
     }
+  };
+
+  public patchUpdate = async (req: Request, res: Response): Promise<void> => {
+    await this.matchService.patchUpdate(req.body, Number(req.params.id));
+    res.status(200).json({ message: 'Finished' });
   };
 }
