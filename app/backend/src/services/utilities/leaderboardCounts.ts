@@ -36,10 +36,10 @@ export default class leaderboardCount {
       this.resetObj();
       this.obj.name = el.teamName;
       resultMatch.forEach((elR) => {
-        if (pathRe === '/home' && elR.homeTeam === el.id) {
+        if (pathRe !== '/away' && elR.homeTeam === el.id) {
           this.pointsHome(elR);
         }
-        if (pathRe === '/away' && elR.awayTeam === el.id) {
+        if (pathRe !== '/home' && elR.awayTeam === el.id) {
           this.pointsAway(elR);
         }
       });

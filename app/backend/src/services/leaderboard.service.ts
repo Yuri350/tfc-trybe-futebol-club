@@ -7,7 +7,7 @@ export default class leaderboardService { // implementado para nao quebrar o cod
 
   private leaderboardCount = new LeaderboardCount();
 
-  public async getLeaderboardHome(pathRe: string) {
+  public async getLeaderboard(pathRe: string) {
     const resultTeam = await this.teamService.getAll();
     const resultMatch = await this.matchService.getAllFinished();
 

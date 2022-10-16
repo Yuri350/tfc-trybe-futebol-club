@@ -13,8 +13,8 @@ const teamService = new TeamService(Team);
 const leaderboardService = new LeaderboardService(matchService, teamService);
 const leaderboardController = new LeaderboardController(leaderboardService);
 
-router.get('/home', (req, res) => leaderboardController.getLeaderboardHome(req, res));
-router.get('/away', (req, res) => leaderboardController.getLeaderboardHome(req, res));
-// router.get('/', (req, res) => leaderboardController.(req, res));
+router.get('/home', (req, res) => leaderboardController.getLeaderboard(req, res));
+router.get('/away', (req, res) => leaderboardController.getLeaderboard(req, res));
+router.get('/', (req, res) => leaderboardController.getLeaderboard(req, res));
 
 export default router;
