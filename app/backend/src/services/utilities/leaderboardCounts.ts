@@ -2,6 +2,8 @@ import IGoals from '../../interface/IGoals';
 import ITeam from '../../interface/ITeam';
 import ILeaderboard from '../../interface/ILeaderboard';
 
+// type teams = 'homeTeam' | 'awayTeam';
+
 export default class leaderboardCount {
   private obj: ILeaderboard = {
     name: '',
@@ -29,13 +31,16 @@ export default class leaderboardCount {
     this.obj.efficiency = 0;
   }
 
-  public async getCountsLeaderboard(resultTeam: ITeam[], resultMatch: IGoals[]) {
+  public async getCountsLeaderboard(resultTeam: ITeam[], resultMatch: IGoals[], pathRe: string) {
     const teamsName: ILeaderboard[] = resultTeam.map((el: ITeam) => {
       this.resetObj();
       this.obj.name = el.teamName;
       resultMatch.forEach((elR) => {
-        if (elR.homeTeam === el.id) {
-          this.points(elR);
+        if (pathRe === '/home' && elR.homeTeam === el.id) {
+          this.pointsHome(elR);
+        }
+        if (pathRe === '/away' && elR.awayTeam === el.id) {
+          this.pointsAway(elR);
         }
       });
       return { ...this.obj };
@@ -43,7 +48,7 @@ export default class leaderboardCount {
     return teamsName;
   }
 
-  private points(elR: IGoals) {
+  private pointsHome(elR: IGoals) {
     this.obj.totalVictories += elR.awayTeamGoals < elR.homeTeamGoals ? 1 : 0;
     this.obj.totalDraws += elR.awayTeamGoals === elR.homeTeamGoals ? 1 : 0;
 
@@ -67,11 +72,31 @@ export default class leaderboardCount {
 
     // goalsBalance
     this.obj.goalsBalance = (this.obj.goalsFavor - this.obj.goalsOwn);
+  }
 
-    // if (elR.awayTeamGoals < elR.homeTeamGoals) {
-    //   this.obj.totalPoints += 3;
-    // } else if (elR.awayTeamGoals === elR.homeTeamGoals) {
-    //   this.obj.totalDraws += 1;
-    // }
+  private pointsAway(elR: IGoals) {
+    this.obj.totalVictories += elR.awayTeamGoals > elR.homeTeamGoals ? 1 : 0;
+    this.obj.totalDraws += elR.awayTeamGoals === elR.homeTeamGoals ? 1 : 0;
+
+    this.obj.totalPoints = (this.obj.totalVictories * 3) + this.obj.totalDraws;
+
+    // P/(J*3)*100
+
+    this.obj.totalGames += 1;
+    this.obj.efficiency = Number(
+      ((this.obj.totalPoints / (this.obj.totalGames * 3)) * 100).toFixed(2),
+    );
+
+    // totalLosses
+    this.obj.totalLosses += elR.awayTeamGoals < elR.homeTeamGoals ? 1 : 0;
+
+    // goalsFavor
+    this.obj.goalsFavor += elR.awayTeamGoals;
+
+    // goalsOwn
+    this.obj.goalsOwn += elR.homeTeamGoals;
+
+    // goalsBalance
+    this.obj.goalsBalance = (this.obj.goalsFavor - this.obj.goalsOwn);
   }
 }

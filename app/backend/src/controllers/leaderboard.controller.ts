@@ -5,7 +5,9 @@ export default class LeaderboardController {
   constructor(private leaderboardService: LeaderboardService) {}
 
   public getLeaderboardHome = async (req: Request, res: Response) => {
-    const result = await this.leaderboardService.getLeaderboardHome();
+    const pathReq = req.path;
+
+    const result = await this.leaderboardService.getLeaderboardHome(pathReq);
     res.status(200).json(result.sort((a, b) => b.totalPoints - a.totalPoints
     || b.totalVictories - a.totalVictories
     || b.goalsBalance - a.goalsBalance

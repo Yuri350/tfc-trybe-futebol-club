@@ -14,6 +14,7 @@ const leaderboardService = new LeaderboardService(matchService, teamService);
 const leaderboardController = new LeaderboardController(leaderboardService);
 
 router.get('/home', (req, res) => leaderboardController.getLeaderboardHome(req, res));
+router.get('/away', (req, res) => leaderboardController.getLeaderboardHome(req, res));
 // router.get('/', (req, res) => leaderboardController.(req, res));
 
 export default router;
