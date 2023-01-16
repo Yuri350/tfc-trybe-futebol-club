@@ -23,14 +23,4 @@ function tokenValidationAux(token: string) {
   return payload;
 }
 
-// const token = (payload) => {
-//   const result = jwt.sign(payload, JWT_SECRET, { algorithm: 'HS256', expiresIn: '1d' });
-//   return result;
-// };
-
-// const tokenValidation = (el) => {
-//   const result = jwt.verify(el, JWT_SECRET);
-//   return result;
-// };
-
 export { createToken, tokenValidationAux };
