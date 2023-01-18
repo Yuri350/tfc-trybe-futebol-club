@@ -22,6 +22,8 @@ Possui uma tabela detalhada que pode ser alterada fazendo requisições ao backe
 Back-end:
 > Desenvolvido usando: NodeJS, ExpressJS, MYSQL, ES6, Sequelize, modelo MSC
 
+# Projeto
+
 <details>
 <summary><strong> Estrutura do projeto</strong></summary><br />
 
